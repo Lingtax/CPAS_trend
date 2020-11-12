@@ -1,15 +1,32 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# CPAS\_trend
+# CPAS Trend
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-This repository contains a shiny app to present results from the CPAS
-longitudinal research project.
+This repository contains a shiny app to present results from the
+COVID-19 Pandemic Adjustment Survey (CPAS) longitudinal research
+project.
+
+## About the Study
+
+The COVID-19 Pandemic Adjustment Survey (CPAS) is a longitudinal
+research study investigating how Australian families have been affected
+by the COVID-19 pandemic. Australia experienced early success after a
+nation-wide lockdown in April 2020. However, the state of Victoria went
+on to experience an outbreak and one of the longest and strictest
+lockdowns in the world over July-October 2020, while the rest of
+Australia had low infection rates and easing restrictions. In the
+current analysis, we investigated the association between the developing
+COVID-19 crisis and parent/child mental health outcomes in families
+experiencing sustained lockdown in Victoria compared to the rest of
+Australia, from April to early November 2020.
+
+## About the App
 
 The shiny app allows a user to explore the modeled trajectories of
-Australians during the COVID-19 pandemic in 2020 based on a number of
-predictors.
+Australians during the COVID-19 pandemic from 8th April to 3rd November,
+2020 based on a number of predictors.
