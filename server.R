@@ -20,13 +20,47 @@ server <- function(input, output) {
     reset("sidebar")
   })
   
-  # recieves inputs from the UI
+  # Recieve inputs from the UI ------------------------------------------
+  # First value must be 1 (intercept) followed by
+  # the inputs in the order they appear in the model weights table
   inputs <- reactive({
     c(1, input$depr, input$covidpsy, input$covidrisk)
     })
+
+  # Candidate variable input formats below.
+  # 
+  # input$page
+  # input$pgender
+  # input$cage
+  # input$cgender
+  # input$childno
+  # input$lote
+  # input$atsi
+  # input$nopartner
+  # input$city
+  # input$deprinput$homesatisfy
+  # input$bedrooms
+  # input$educ
+  # input$renting
+  # input$introvert
+  # input$chroncond
+  # input$mentalcond
+  # input$adhdasdinput$covidpsy
+  # input$covidrisk
+  # input$media
+  # input$plonely
+  # input$clonely
+  # input$alcohol
+  # input$conflict
+  # input$childbehv
+  # input$child_home
+    
+  # Contain  pre-modelled parameter weights -----------------------------
+  # use the datapasta Add-in, paste table as tribble (excluding row labels)
   
-  # contains  pre-modelled parameter weights
+  # Parent outcomes
   nv_depr <-  tibble::tribble(
+    
         ~i,   ~s1,    ~q1,    ~s2,    ~q2,    ~c2,
      4.446, 2.027, -2.257,   0.26,   0.02, -0.136,
      0.956, 0.475, -0.532,   0.37, -0.568,  0.256,
@@ -41,6 +75,17 @@ server <- function(input, output) {
                   0.64, 0.235,  -0.27,  0.255, -0.407,  0.184,
                  0.682, 0.337, -0.475,  0.448, -0.827,  0.406
                  )
+  #nv_anx <-  
+  #v_anx <-  
+  #nv_stress <-  
+  #v_stress <-  
+  
+  # Child outcomes
+  
+  #nv_cdep <-  
+  #v_cdep <-  
+  #nv_canx <-  
+  #v_canx <-  
 
 
   
@@ -111,7 +156,7 @@ server <- function(input, output) {
       theme(line = element_line(size = 1.5),
             text = element_text(size = 16),
             panel.grid.major.y = element_line(colour = "grey80", size = .3)) + 
-      labs(y = "Depression", x = "Date", color = "Legend") +
+      labs(y = "Parent depression", x = "Date", color = "Legend") +
       
       #experimental annotation layers Lockdown 7th July to 26th October
       geom_vline(xintercept = 90, colour = 'red') + 
@@ -122,10 +167,11 @@ server <- function(input, output) {
                label = "Melbourne exits \nsecond lockdown") 
 
     
-    p1 / refplot
+    (p1 / refplot) + plot_layout(heights = c(2, 1))
+    
 
 
-  })
+  }, height = 600)
   
 
 }
