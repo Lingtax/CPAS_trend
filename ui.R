@@ -1,7 +1,8 @@
 
 # Define UI
-ui <- navbarPage("CPAS explorer",
-    
+ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
+    navbarPage("CPAS explorer",
+                 
     # Main Panel
     tabPanel("Dashboard",
              
@@ -191,10 +192,10 @@ ui <- navbarPage("CPAS explorer",
                             radioButtons("child_home", "Child at home while working:",
                                          c("No" = 0,
                                            "Yes" = 1)
-                            ),
+                            )#,
                             
-                            useShinyjs(), # Include shinyjs in the UI
-                            actionButton("reset", "Reset variables")
+                            
+                            #actionButton("reset", "Reset variables")
                      )
                      
                  ) # div end  - all controls must be inside for reset
@@ -227,4 +228,4 @@ ui <- navbarPage("CPAS explorer",
     )
 
 )
-
+)

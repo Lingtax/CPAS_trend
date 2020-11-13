@@ -16,9 +16,9 @@ calc_weights <- function(inputs, weights) {
 server <- function(input, output) {
 
   # Reset button controls
-  observeEvent(input$reset, {
-    reset("sidebar")
-  })
+  # observeEvent(input$reset, {
+  #   reset("sidebar")
+  # })
   
   # Recieve inputs from the UI ------------------------------------------
   # First value must be 1 (intercept) followed by
