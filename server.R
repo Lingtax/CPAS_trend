@@ -111,7 +111,7 @@ server <- function(input, output) {
 
   refdat <- readRDS(here::here("data", "refdata.RDS"))
   refplot <- refdat %>% ggplot(aes(date, positives, colour = state_abbrev)) +
-    # lockdown period
+    # lockdown period - 7th July to 26th October
     geom_rect(aes(xmin = date(dmy("8th april, 2020") + 90), 
                   xmax = date(dmy("8th April, 2020") + 201), 
                   ymin = -Inf, ymax = Inf),
@@ -131,7 +131,7 @@ server <- function(input, output) {
   output$deprPlot <- renderPlot({
 
     p1 <-  ggplot(data.frame(x = 0:209), aes(x)) +
-      #lockdown period
+      #lockdown period - 7th July to 26th October
       geom_rect(aes(xmin =  90, 
                     xmax = 201, 
                     ymin = -Inf, ymax = Inf), 
@@ -177,16 +177,7 @@ server <- function(input, output) {
                         label = "Melbourne lockdown", colour = "white", 
                fontface = "bold")
       
-      #experimental annotation layers Lockdown 7th July to 26th October
       
-      # geom_vline(xintercept = 90, colour = 'red') + 
-      # annotate("text", x = 93, y = 12, hjust = 0,
-      #          label = "Melbourne enters \nsecond lockdown") + 
-      # geom_vline(xintercept = 201, colour = 'red') + 
-      # annotate("text", x = 198, y = 12, hjust = 1,
-      #          label = "Melbourne exits \nsecond lockdown") 
-
-    
     (p1 / refplot) + plot_layout(heights = c(2, 1))
     
 
