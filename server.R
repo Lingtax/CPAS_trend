@@ -111,6 +111,11 @@ server <- function(input, output) {
 
   refdat <- readRDS(here::here("data", "refdata.RDS"))
   refplot <- refdat %>% ggplot(aes(date, positives, colour = state_abbrev)) +
+    # lockdown period
+    geom_rect(aes(xmin = date(dmy("8th april, 2020") + 90), 
+                  xmax = date(dmy("8th April, 2020") + 201), 
+                  ymin = -Inf, ymax = Inf),
+              fill = "grey", alpha = 0.2,  data = tibble(x= 0:209), inherit.aes = FALSE) +
     geom_line() +
     theme_classic() +
     theme(line = element_line(size = 1.5),
@@ -126,24 +131,11 @@ server <- function(input, output) {
   output$deprPlot <- renderPlot({
 
     p1 <-  ggplot(data.frame(x = 0:209), aes(x)) +
-      geom_function(fun = function(x) 
-        depr_nv()[1] +
-          depr_nv()[2]*ifelse(x>74, 74, x) +
-          depr_nv()[3]*ifelse(x>74, 74, x)^2 +
-          depr_nv()[4]*ifelse(x<75, 0, x-75) +
-          depr_nv()[5]*ifelse(x<75, 0, x-75)^2 +
-          depr_nv()[6]*ifelse(x<75, 0, x-75)^3,
-                    aes(color = "Non-Victoria")
-      ) +
-      geom_function(fun = function(x) 
-        depr_v()[1] +
-          depr_v()[2]*ifelse(x>74, 74, x) +
-          depr_v()[3]*ifelse(x>74, 74, x)^2 +
-          depr_v()[4]*ifelse(x<75, 0, x-75) +
-          depr_v()[5]*ifelse(x<75, 0, x-75)^2 +
-          depr_v()[6]*ifelse(x<75, 0, x-75)^3,
-                    aes(color = "Victoria")
-      ) +
+      #lockdown period
+      geom_rect(aes(xmin =  90, 
+                    xmax = 201, 
+                    ymin = -Inf, ymax = Inf), 
+                fill = "grey", alpha = 0.1) +
       coord_cartesian(xlim = c(0, 209), ylim = c(0, 18)) +
       theme_classic() +
       scale_color_manual(name = "Group",
@@ -155,16 +147,44 @@ server <- function(input, output) {
       ) +
       theme(line = element_line(size = 1.5),
             text = element_text(size = 16),
-            panel.grid.major.y = element_line(colour = "grey80", size = .3)) + 
-      labs(y = "Parent depression", x = "Date", color = "Legend") +
+            panel.grid.major.y = element_line(colour = "grey80", size = .3),
+            # Force 
+            panel.background = element_rect(fill = NA),
+            panel.ontop = TRUE) + 
+      labs(y = "Parent depression", x = "Date", color = "Legend", 
+           title = "Modelled Parent Depression over time", 
+           caption = "Shaded region represents Melbourne lockdown")  +
+      # Model
+      geom_function(fun = function(x) 
+        depr_nv()[1] +
+          depr_nv()[2]*ifelse(x>74, 74, x) +
+          depr_nv()[3]*ifelse(x>74, 74, x)^2 +
+          depr_nv()[4]*ifelse(x<75, 0, x-75) +
+          depr_nv()[5]*ifelse(x<75, 0, x-75)^2 +
+          depr_nv()[6]*ifelse(x<75, 0, x-75)^3,
+        aes(color = "Non-Victoria")
+      ) +
+      geom_function(fun = function(x) 
+        depr_v()[1] +
+          depr_v()[2]*ifelse(x>74, 74, x) +
+          depr_v()[3]*ifelse(x>74, 74, x)^2 +
+          depr_v()[4]*ifelse(x<75, 0, x-75) +
+          depr_v()[5]*ifelse(x<75, 0, x-75)^2 +
+          depr_v()[6]*ifelse(x<75, 0, x-75)^3,
+        aes(color = "Victoria")
+      ) +
+      annotate("text", x = mean(c(90, 201)), y = 18, hjust = 0.5,
+                        label = "Melbourne lockdown", colour = "white", 
+               fontface = "bold")
       
       #experimental annotation layers Lockdown 7th July to 26th October
-      geom_vline(xintercept = 90, colour = 'red') + 
-      annotate("text", x = 93, y = 12, hjust = 0,
-               label = "Melbourne enters \nsecond lockdown") + 
-      geom_vline(xintercept = 201, colour = 'red') + 
-      annotate("text", x = 198, y = 12, hjust = 1,
-               label = "Melbourne exits \nsecond lockdown") 
+      
+      # geom_vline(xintercept = 90, colour = 'red') + 
+      # annotate("text", x = 93, y = 12, hjust = 0,
+      #          label = "Melbourne enters \nsecond lockdown") + 
+      # geom_vline(xintercept = 201, colour = 'red') + 
+      # annotate("text", x = 198, y = 12, hjust = 1,
+      #          label = "Melbourne exits \nsecond lockdown") 
 
     
     (p1 / refplot) + plot_layout(heights = c(2, 1))
