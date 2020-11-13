@@ -29,4 +29,13 @@ Australia, from April to early November 2020.
 
 The shiny app allows a user to explore the modeled trajectories of
 Australians during the COVID-19 pandemic from 8th April to 3rd November,
-2020 based on a number of predictors.
+2020 based on a number of predictors. ![](example.png)
+
+## Authors
+
+Elizabeth Westrupp, Christopher Greenwood, Mathew Ling, Gery Karantzas,
+Jacqui Macdonald, Emma Sciberras, Antonina Mikocka-Walus, Robert
+Cummins, Delyse Hutchinson, Glenn. A Melvin, Julian Fernando, Samantha
+Teague, Amanda Wood, John Toumbourou, Tomer S Berkowitz, Jake Linardon,
+Lisa Olive, Peter Gregory Enticott, Mark Andrew Stokes, Jane
+McGillivray, Craig Olsson, Matthew Fuller-Tyszkiewicz and George Youssef
