@@ -42,14 +42,14 @@ coreplot <-  function(){
 }
 
 # function to calculate postdictions
-# postdict <-  function(x, weights) {
-#   weights[1] +
-#   weights[2]*ifelse(x>74, 74, x) +
-#   weights[3]*ifelse(x>74, 74, x)^2 +
-#   weights[4]*ifelse(x<75, 0, x-75) +
-#   weights[5]*ifelse(x<75, 0, x-75)^2 +
-#   weights[6]*ifelse(x<75, 0, x-75)^3
-# }
+ postdict <-  function(.xx, weights) {
+  weights()["i"] +
+  weights()["s1"]*ifelse(.xx>74, 74, .xx) +
+  weights()["q1"]*ifelse(.xx>74, 74, .xx)^2 +
+  weights()["s2"]*ifelse(.xx<75, 0, .xx-75) +
+  weights()["q2"]*ifelse(.xx<75, 0, .xx-75)^2 +
+  weights()["c2"]*ifelse(.xx<75, 0, .xx-75)^3
+ }
 
 # Core server functionality -----------------------------------------------
 server <- function(input, output) {
@@ -171,22 +171,10 @@ server <- function(input, output) {
     
     p1 <-  coreplot()  +
       # Model
-      geom_function(fun = function(x) 
-        depr_nv()[1] +
-          depr_nv()[2]*ifelse(x>74, 74, x) +
-          depr_nv()[3]*ifelse(x>74, 74, x)^2 +
-          depr_nv()[4]*ifelse(x<75, 0, x-75) +
-          depr_nv()[5]*ifelse(x<75, 0, x-75)^2 +
-          depr_nv()[6]*ifelse(x<75, 0, x-75)^3,
+      geom_function(fun = postdict, args = list(weights = depr_nv),
         aes(color = "Non-Victoria")
       ) +
-      geom_function(fun = function(x) 
-        depr_v()[1] +
-          depr_v()[2]*ifelse(x>74, 74, x) +
-          depr_v()[3]*ifelse(x>74, 74, x)^2 +
-          depr_v()[4]*ifelse(x<75, 0, x-75) +
-          depr_v()[5]*ifelse(x<75, 0, x-75)^2 +
-          depr_v()[6]*ifelse(x<75, 0, x-75)^3,
+      geom_function(fun = postdict, args = list(weights = depr_v),
         aes(color = "Victoria")
       ) + 
       labs(title = "Modelled Parent Depression over time", y = "Parent depression")
