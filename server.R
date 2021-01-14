@@ -37,8 +37,7 @@ coreplot <-  function(){
     annotate("text", x = mean(c(90, 201)), y = 18, hjust = 0.5,
              label = "Melbourne lockdown", colour = "white", 
              fontface = "bold") + 
-    labs(x = "Date", color = "Legend", 
-         caption = "Shaded region represents Melbourne lockdown")
+    labs(x = "Date", color = "Legend")
 }
 
 # function to calculate postdictions
@@ -77,20 +76,22 @@ server <- function(input, output) {
   # input$atsi
   # input$nopartner
   # input$city
-  # input$deprinput$homesatisfy
+  # input$deprinput
+  # input$homesatisfy
   # input$bedrooms
   # input$educ
   # input$renting
   # input$introvert
   # input$chroncond
   # input$mentalcond
-  # input$adhdasdinput$covidpsy
+  # input$adhdasdinput
+  # input$covidpsy
   # input$covidrisk
   # input$media
-  # input$plonely
+  # input$plonely # UCLALS
   # input$clonely
   # input$alcohol
-  # input$conflict
+  # input$conflict #Argue V
   # input$childbehv
   # input$child_home
   

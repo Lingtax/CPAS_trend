@@ -1,6 +1,16 @@
 
 # Define UI
 ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
+    tags$style(HTML(".irs-bar {width: 100%; height: 5px;}")),
+    tags$style(HTML(".irs-bar-edge {height: 5px;}")),
+    tags$style(HTML(".irs-line {height: 5px;}")),
+    tags$style(HTML(".irs-grid-text {font-family: 'arial'; font-size: 11px}")),
+    tags$style(HTML(".irs-max {font-family: 'arial'; color: black;}")),
+    tags$style(HTML(".irs-min {font-family: 'arial'; color: black;}")),
+    tags$style(HTML(".irs-slider {width: 15px; height: 15px; top: 20px;}")), # slider ball controls
+    
+     tags$style(HTML("* {font-size: 12px;}")),
+    #tags$style(HTML("p {font-size: 11px}")),
     navbarPage("CPAS explorer",
                  
     # Main Panel
@@ -9,9 +19,8 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                # Panel for output displays
                column(6,
                       
-                      "The current study investigated the association between the developing COVID-19 crisis in Australia and parent/child mental health outcomes in 2,365 families experiencing sustained lockdown in Victoria compared to the rest of Australia, from April to early November 2020.", 
-                      
-                      br(), 
+                      p("The current study investigated the association between the developing COVID-19 crisis in Australia and parent/child mental health outcomes in 2,365 families experiencing sustained lockdown in Victoria compared to the rest of Australia, from April to early November 2020."), 
+                      p("Variables in the model can be varied with controls on the right to show postdictions of the trajectory for individuals under those conditions through the study period."),
                       
                       # This nested tabset panel lets the user switch between
                       # outcomes while preserving levels of the input variables
