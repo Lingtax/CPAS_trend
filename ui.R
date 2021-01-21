@@ -36,23 +36,23 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                            ),
                            tabPanel("Parent anxiety",
                                     
-                                    #plotOutput("anxPlot")
+                                    plotOutput("anxPlot")
                                     
                            ),
                            tabPanel("Parent stress",
                                     
-                                    #plotOutput("anxPlot")
+                                    plotOutput("stressPlot")
                                     
                            ),
                            tabPanel("Child Depression",
 
-                               # plotOutput("cdepPlot")
+                                    plotOutput("cdepPlot")
 
                       ),
                            tabPanel("Child anxiety",
 
-                      #          plotOutput("canxPlot")
-
+                                  plotOutput("canxPlot")
+    
                       )
                )
              ),
