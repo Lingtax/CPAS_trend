@@ -19,7 +19,7 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                # Panel for output displays
                column(6,
                       
-                      p("The current study investigated the association between the developing COVID-19 crisis in Australia and parent/child mental health outcomes in 2,365 families experiencing sustained lockdown in Victoria compared to the rest of Australia, from April to early November 2020."), 
+                      p("The current study investigated the association between the developing COVID-19 crisis in Australia and parent/child mental health outcomes in 2,365 families experiencing sustained lockdown in Victoria compared to the rest of Australia, from April to October 5th, 2020."), 
                       p("Variables in the model can be varied with controls on the right to show postdictions of the trajectory for individuals under those conditions through the study period."),
                       
                       # This nested tabset panel lets the user switch between
@@ -36,23 +36,23 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                            ),
                            tabPanel("Parent anxiety",
                                     
-                                    #plotOutput("anxPlot")
+                                    plotOutput("anxPlot")
                                     
                            ),
                            tabPanel("Parent stress",
                                     
-                                    #plotOutput("anxPlot")
+                                    plotOutput("stressPlot")
                                     
                            ),
                            tabPanel("Child Depression",
 
-                               # plotOutput("cdepPlot")
+                                    plotOutput("cdepPlot")
 
                       ),
                            tabPanel("Child anxiety",
 
-                      #          plotOutput("canxPlot")
-
+                                  plotOutput("canxPlot")
+    
                       )
                )
              ),
@@ -68,47 +68,52 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                         value = 0
                                         ),
                             radioButtons("pgender", "Parent Gender:",
-                                         c("Male" = 1,
-                                           "Female" = 2,
-                                           "Non-binary" = 3)
+                                         c("Male" = 0,
+                                           "Not Male" = 1)
                             ),
-                            sliderInput("cage",
-                                        "Child age:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0
-                                        ),
-                            radioButtons("cgender", "Child Gender:",
-                                         c("Male" = 1,
-                                           "Female" = 2,
-                                           "Non-binary" = 3)
+                            radioButtons("educ", "Low education:",
+                                         c("No" = 0,
+                                           "Yes" = 1)
                             ),
-                            sliderInput("childno",
-                                        "Number of Children:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0
-                                        ),
                             radioButtons("lote", "Primary language other than English:",
                                          c("No" = 0,
                                            "Yes" = 1)
                             ),
-                            radioButtons("atsi", "Aboriginal and Torres Strait Islander status:",
+                           radioButtons("nopartner", "Single parent:",
                                          c("No" = 0,
                                            "Yes" = 1)
                             ),
-                            radioButtons("nopartner", "Single parent:",
-                                         c("No" = 0,
-                                           "Yes" = 1)
-                            ),
-                            radioButtons("city", "Major city:",
-                                         c("No" = 0,
-                                           "Yes" = 1)
-                            )
+                           radioButtons("chroncond", "Parent chronic health condition:",
+                                        c("No" = 0,
+                                          "Yes" = 1)
+                           ),
+                           radioButtons("mentalcond", "Parent mental health diagnosis:",
+                                        c("No" = 0,
+                                          "Yes" = 1)
+                           ),
+                           sliderInput("introvert",
+                                       "Parent introversion:",
+                                       min = -1,
+                                       max = +1,
+                                       value = 0
+                           ),
+                           sliderInput("plonely",
+                                       "Parent Loneliness:",
+                                       min = -1,
+                                       max = +1,
+                                       value = 0),
+                           sliderInput("alcohol",
+                                       "Parent Alcohol use:",
+                                       min = -1,
+                                       max = +1,
+                                       value = 0),
                             
                      ),
                      column(2,
-                            
+                            radioButtons("city", "Major city:",
+                                         c("No" = 0,
+                                           "Yes" = 1)
+                            ),
                             # socioeconomic disadvantage
                             sliderInput("depr",
                                         "Financial Deprivation:",
@@ -125,29 +130,30 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                         min = -1,
                                         max = +1,
                                         value = 0),
-                            radioButtons("educ", "Low education:",
-                                         c("No" = 0,
-                                           "Yes" = 1)
-                            ),
+                            sliderInput("outdoorsize",
+                                        "Outdoor area of home:",
+                                        min = -1,
+                                        max = +1,
+                                        value = 0),
                             radioButtons("renting", "Renting:",
                                          c("No" = 0,
                                            "Yes" = 1)
                             ),
-                            #Individual Risk factors
-                            hr(),
-                            sliderInput("introvert",
-                                        "Parent introversion:",
+                            sliderInput("cage",
+                                        "Child age:",
                                         min = -1,
                                         max = +1,
                                         value = 0
-                                        ),
-                            radioButtons("chroncond", "Parent chronic health condition:",
-                                         c("No" = 0,
-                                           "Yes" = 1)
                             ),
-                            radioButtons("mentalcond", "Parent mental health diagnosis:",
-                                         c("No" = 0,
-                                           "Yes" = 1)
+                            radioButtons("cgender", "Child Gender:",
+                                         c("Male" = 0,
+                                           "Not Male" = 1)
+                            ),
+                            sliderInput("childno",
+                                        "Number of Children:",
+                                        min = -1,
+                                        max = +1,
+                                        value = 0
                             ),
                             radioButtons("adhdasd", "Child ADHD or ASD diagnosis:",
                                          c("No" = 0,
@@ -173,28 +179,13 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                         min = -1,
                                         max = +1,
                                         value = 0),
-                            sliderInput("plonely",
-                                        "Parent Loneliness:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0),
-                            sliderInput("clonely",
-                                        "Child Loneliness:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0),
-                            sliderInput("alcohol",
-                                        "Parent Alcohol use:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0),
                             sliderInput("conflict",
                                         "Couple verbal conflict:",
                                         min = -1,
                                         max = +1,
                                         value = 0),
-                            sliderInput("childbehv",
-                                        "Child behaviour problems:",
+                            sliderInput("clonely",
+                                        "Child Loneliness:",
                                         min = -1,
                                         max = +1,
                                         value = 0),
