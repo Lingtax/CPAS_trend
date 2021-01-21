@@ -61,15 +61,9 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
              fluidRow(
                  div(id = "sidebar",
                      column(2, 
-                            sliderInput("page",
-                                        "Reporting parent age:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0
-                                        ),
-                            radioButtons("pgender", "Parent Gender:",
+                            radioButtons("pgender", "Parent gender:",
                                          c("Male" = 0,
-                                           "Not Male" = 1)
+                                           "Female, nonbinary, trans or queer" = 1)
                             ),
                             radioButtons("educ", "Low education:",
                                          c("No" = 0,
@@ -91,6 +85,12 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                         c("No" = 0,
                                           "Yes" = 1)
                            ),
+                            sliderInput("page",
+                                        "Parent age:",
+                                        min = -1,
+                                        max = +1,
+                                        value = 0
+                                        ),
                            sliderInput("introvert",
                                        "Parent introversion:",
                                        min = -1,
@@ -98,25 +98,29 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                        value = 0
                            ),
                            sliderInput("plonely",
-                                       "Parent Loneliness:",
+                                       "Parent loneliness:",
                                        min = -1,
                                        max = +1,
                                        value = 0),
                            sliderInput("alcohol",
-                                       "Parent Alcohol use:",
+                                       "Parent alcohol use:",
                                        min = -1,
                                        max = +1,
                                        value = 0),
                             
                      ),
                      column(2,
-                            radioButtons("city", "Major city:",
+                            radioButtons("city", "Regional / remote (versus city):",
+                                         c("No" = 0,
+                                           "Yes" = 1)
+                            ),
+                            radioButtons("renting", "Renting:",
                                          c("No" = 0,
                                            "Yes" = 1)
                             ),
                             # socioeconomic disadvantage
                             sliderInput("depr",
-                                        "Financial Deprivation:",
+                                        "Financial deprivation:",
                                         min = -1,
                                         max = +1,
                                         value = 0),
@@ -135,7 +139,34 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                         min = -1,
                                         max = +1,
                                         value = 0),
-                            radioButtons("renting", "Renting:",
+                            sliderInput("covidpsy",
+                                        "COVID psychological stressors:",
+                                        min = -1,
+                                        max = +1,
+                                        value = 0),
+                            sliderInput("covidrisk",
+                                        "COVID environmental stressors:",
+                                        min = -1,
+                                        max = +1,
+                                        value = 0),
+                            sliderInput("media",
+                                        "Use of news media:",
+                                        min = -1,
+                                        max = +1,
+                                        value = 0)
+                            
+                            ),
+                     column(2, 
+                            
+                            radioButtons("cgender", "Child gender:",
+                                         c("Male" = 0,
+                                           "Female, nonbinary, trans or queer" = 1)
+                            ),
+                            radioButtons("adhdasd", "Child ADHD or ASD diagnosis:",
+                                         c("No" = 0,
+                                           "Yes" = 1)
+                            ),
+                            radioButtons("child_home", "Child at home while working:",
                                          c("No" = 0,
                                            "Yes" = 1)
                             ),
@@ -145,37 +176,14 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                         max = +1,
                                         value = 0
                             ),
-                            radioButtons("cgender", "Child Gender:",
-                                         c("Male" = 0,
-                                           "Not Male" = 1)
-                            ),
                             sliderInput("childno",
-                                        "Number of Children:",
+                                        "Number of children:",
                                         min = -1,
                                         max = +1,
                                         value = 0
                             ),
-                            radioButtons("adhdasd", "Child ADHD or ASD diagnosis:",
-                                         c("No" = 0,
-                                           "Yes" = 1)
-                            ),
-                            
-                            
-                            ),
-                     column(2, 
-                            # Pandemic factors
-                            sliderInput("covidpsy",
-                                        "COVID Psychological stressors:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0),
-                            sliderInput("covidrisk",
-                                        "COVID Environmental Stressors:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0),
-                            sliderInput("media",
-                                        "Use of news media:",
+                            sliderInput("clonely",
+                                        "Child loneliness:",
                                         min = -1,
                                         max = +1,
                                         value = 0),
@@ -183,16 +191,7 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                                         "Couple verbal conflict:",
                                         min = -1,
                                         max = +1,
-                                        value = 0),
-                            sliderInput("clonely",
-                                        "Child Loneliness:",
-                                        min = -1,
-                                        max = +1,
-                                        value = 0),
-                            radioButtons("child_home", "Child at home while working:",
-                                         c("No" = 0,
-                                           "Yes" = 1)
-                            )#,
+                                        value = 0)
                             
                             
                             #actionButton("reset", "Reset variables")
@@ -208,7 +207,7 @@ ui <- tagList(#useShinyjs(), # Include shinyjs in the UI
                fluidRow(
                  column(12,
                         h1("About the CPAS study"),
-                        "The COVID-19 Pandemic Adjustment Survey (CPAS) is a longitudinal research study investigating how Australian families have been affected by the COVID-19 pandemic. Australia experienced early success after a nation-wide lockdown in April 2020. However, the state of Victoria went on to experience an outbreak and one of the longest and strictest lockdowns in the world over July-October 2020, while the rest of Australia had low infection rates and easing restrictions. In the current analysis, we investigated the association between the developing COVID-19 crisis and parent/child mental health outcomes in families experiencing sustained lockdown in Victoria compared to the rest of Australia, from April to early November 2020.",
+                        "The COVID-19 Pandemic Adjustment Survey (CPAS) is a longitudinal research study investigating how Australian families have been affected by the COVID-19 pandemic. Australia experienced early success after a nation-wide lockdown in April 2020. However, the state of Victoria went on to experience an outbreak and one of the longest and strictest lockdowns in the world over July-October 2020, while the rest of Australia had low infection rates and easing restrictions. In the current analysis, we investigated the association between the developing COVID-19 crisis and parent/child mental health outcomes in families experiencing sustained lockdown in Victoria compared to the rest of Australia, from April 7th, 2020 to October 5th, 2020",
                         br(),
                         br(),
                         "This is an experimental dashboard for displaying model outputs from the CPAS project.",
