@@ -604,7 +604,7 @@ server <- function(input, output) {
       geom_function(fun = postdict, args = list(weights = canx_v),
                     aes(color = "Victoria")
       ) + 
-      labs(title = "Modelled Child Depression over time", y = "Child depression")
+      labs(title = "Modelled Child Anxiety over time", y = "Child anxiety")
     
     
     (p5 / refplot) + plot_layout(heights = c(2, 1))
